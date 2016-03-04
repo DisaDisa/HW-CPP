@@ -43,11 +43,13 @@ rational rational::operator / (rational const &q) const {
 int rational::gcd(int a, int b) const {
 	a = std::abs(a);
 	b = std::abs(b);
-	while (a > 0) {
-		a %= b;
-		std::swap(a, b);
+	while (a > 0 && b > 0) {
+		if (a > b)
+			a %= b;
+		else
+			b %= a;
 	}
-	return a;
+	return a + b;
 }
 
 rational rational::normal(rational &a) const {
