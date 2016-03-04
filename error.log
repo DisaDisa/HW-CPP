@@ -1,0 +1,56 @@
+rational.cpp: In member function 'rational rational::operator+(const rational&) const':
+rational.cpp:24:45: error: no matching function for call to 'rational::normal(rational) const'
+  return normal(rational(first + second, lcm));
+                                             ^
+rational.cpp:24:45: note: candidate is:
+In file included from rational.cpp:1:0:
+rational.h:16:11: note: rational rational::normal(rational&) const
+  rational normal(rational &) const;
+           ^
+rational.h:16:11: note:   no known conversion for argument 1 from 'rational' to 'rational&'
+rational.cpp: In member function 'rational rational::operator-(const rational&) const':
+rational.cpp:31:45: error: no matching function for call to 'rational::normal(rational) const'
+  return normal(rational(first - second, lcm));
+                                             ^
+rational.cpp:31:45: note: candidate is:
+In file included from rational.cpp:1:0:
+rational.h:16:11: note: rational rational::normal(rational&) const
+  rational normal(rational &) const;
+           ^
+rational.h:16:11: note:   no known conversion for argument 1 from 'rational' to 'rational&'
+rational.cpp: In member function 'rational rational::operator*(const rational&) const':
+rational.cpp:35:54: error: no matching function for call to 'rational::normal(rational) const'
+  return normal(rational(num * q.num, denom * q.denom));
+                                                      ^
+rational.cpp:35:54: note: candidate is:
+In file included from rational.cpp:1:0:
+rational.h:16:11: note: rational rational::normal(rational&) const
+  rational normal(rational &) const;
+           ^
+rational.h:16:11: note:   no known conversion for argument 1 from 'rational' to 'rational&'
+rational.cpp: In member function 'rational rational::operator/(const rational&) const':
+rational.cpp:39:54: error: no matching function for call to 'rational::normal(rational) const'
+  return normal(rational(num * q.denom, denom * q.num));
+                                                      ^
+rational.cpp:39:54: note: candidate is:
+In file included from rational.cpp:1:0:
+rational.h:16:11: note: rational rational::normal(rational&) const
+  rational normal(rational &) const;
+           ^
+rational.h:16:11: note:   no known conversion for argument 1 from 'rational' to 'rational&'
+rational.cpp: In member function 'rational rational::operator+(const rational&) const':
+rational.cpp:25:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+rational.cpp: In member function 'rational rational::operator-(const rational&) const':
+rational.cpp:32:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+rational.cpp: In member function 'rational rational::operator*(const rational&) const':
+rational.cpp:36:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
+rational.cpp: In member function 'rational rational::operator/(const rational&) const':
+rational.cpp:40:1: warning: control reaches end of non-void function [-Wreturn-type]
+ }
+ ^
