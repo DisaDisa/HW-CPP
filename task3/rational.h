@@ -15,7 +15,7 @@ public:
 private:
 	int num, denom;
 	int gcd(int, int) const;
-	rational normal(rational &) const;
+	rational normal(rational) const;
 
 	
 };

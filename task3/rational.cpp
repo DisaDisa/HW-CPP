@@ -52,7 +52,7 @@ int rational::gcd(int a, int b) const {
 	return a + b;
 }
 
-rational rational::normal(rational &a) const {
+rational rational::normal(rational a) const {
 	int g = gcd(a.num, a.denom);
 	return rational(a.num / g, a.denom / g);
 }
