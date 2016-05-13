@@ -20,7 +20,7 @@ int main() {
 			}
 			printf("\n");
 		}
-		scanf("%d", l1);
+		scanf("%d", &l1);
 	}
 	return 0;
 }	
