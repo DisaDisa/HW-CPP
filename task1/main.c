@@ -15,9 +15,10 @@ int main() {
 	scanf("%d", &l1);
 	while(l1 != 0) {
 		scanf("%d%d%d", &r1, &l2, &r2);
+		int sz = (int)log10(a[l2][r2]) + 2;
 		for(int i = l1; i <= r1; i++) {
 			for(int j = l2; j <= r2; j++) {
-				printf("%d", a[i - 1][j - 1]);
+				printf("%*d", sz, a[i - 1][j - 1]);
 			}
 			printf("\n");
 		}
