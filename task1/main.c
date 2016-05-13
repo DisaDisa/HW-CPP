@@ -12,12 +12,13 @@ int main() {
 	}
 	int l1, r1, l2, r2;
 	scanf("%d%d%d%d", &l1, &r1, &l2, &r2);
-	if(l1 == 0) return 0;
-	for(int i = l1; i <= r1; i++) {
-		for(int j = l2; j <= r2; j++) {
-			printf("%d ", a[i - 1][j - 1]);
+	if(l1 != 0) {
+		for(int i = l1; i <= r1; i++) {
+			for(int j = l2; j <= r2; j++) {
+				printf("%d ", a[i - 1][j - 1]);
+			}
+			printf("\n");
 		}
-		printf("\n");
 	}
 	return 0;
 }	
