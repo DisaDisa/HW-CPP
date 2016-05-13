@@ -16,7 +16,7 @@ int main() {
 	while(l1 != 0) {
 		scanf("%d%d%d", &r1, &l2, &r2);
 		int sz = 1;
-		int now = a[l2][r2];
+		int now = a[l2 - 1][r2 - 1];
 		while(now > 0) {
 			sz++;
 			now /= 10;
