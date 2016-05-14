@@ -19,12 +19,14 @@ char *read_string(FILE *in) {
 	ans = (char *) malloc(sizeof(char));
 	do {
 		c = fgetc(in);
-	}while(c == EOF || c == ' ' || c == '\n' || c == '\0');
+	} while(c == EOF || c == ' ' || c == '\n' || c == '\0');
 	while (c != EOF && c != ' ' && c != '\n' && c != '\0') {
 		ans = (char *) realloc(ans, (++sz) * sizeof(char));
 		ans[sz - 2] = c;
 		c = fgetc(in);
 	}
+
+	ans[sz - 1] = '\0';
 	return ans;
 }	
 
@@ -42,7 +44,7 @@ void read_contact(FILE *in, contact *now) {
 }	
 
 void print_contact(contact *a) {
-	printf("%d %s %s\n", a->id, a->name, a->number);
+	printf("%d %s %s", a->id, a->name, a->number);
 	fflush(stdout);
 }	
 
@@ -84,6 +86,22 @@ void find(char *str) {
 }	
 
 
+int count() {
+	FILE *f;
+	int ans = 0;
+	f = fopen(filename, "r");
+	while(!feof(f)) {
+		contact *now;
+		read_contact(f, now);
+		free(now->name);
+		free(now->number);
+		free(now);
+		ans++;
+	}
+	fclose(f);
+	return ans;
+}
+
 void create() {
 	contact *new_con = (contact *) malloc(sizeof(contact));
 	char *name = read_string(stdin);
@@ -93,42 +111,32 @@ void create() {
 	strcpy(new_con->name, name);
 	strcpy(new_con->number, number);
 	free(name);
-	free(number);
+	free(number);	
 	FILE *f;
 	int id = 0;
-	if((f = fopen(filename, "r")) == 0) {
+	f = fopen(filename, "r");
+	if(f == 0) {
 		f = fopen(filename, "w");
 		fprintf(f, "%d %s %s", 1, new_con->name, new_con->number);
 	} else {
 		while(!feof(f)) {
-			contact now;
-			read_contact(f, &now);
-			if(id < now.id)
-				id = now.id;
+			contact *now;
+			read_contact(f, now);
+			if(id < now->id)
+				id = now->id;
+			//free(now->number);
+			//free(now->name);
+			//free(now);
 		}
 		fclose(f);
 		f = fopen(filename, "a");
-		printf("%d %s %s\n", id + 1, new_con->name, new_con->number);
+		fprintf(f, "\n%d %s %s", id + 1, new_con->name, new_con->number);
 	}
 	fclose(f);
-	free(new_con->name);
-	free(new_con->number);
-	free(new_con);
+	//free(new_con->number);
+	//free(new_con->name);
+	//free(new_con);
 }	
-
-int count() {
-	FILE *f;
-	int ans = 0;
-	f = fopen(filename, "r");
-	while(!feof(f)) {
-		contact *now;
-		read_contact(f, now);
-		free(now);
-		ans++;
-	}
-	fclose(f);
-	return ans;
-}
 
 
 void delete(int id) {
@@ -136,15 +144,19 @@ void delete(int id) {
 	FILE *f;
 	f = fopen(filename, "r");
 	contact **contacts = (contact **) malloc(cnt * sizeof(contact *));
+	int was = 0;
 	for(int i = 0; i < cnt; i++) {
 		contacts[i] = (contact *) malloc(sizeof(contact));
-		read_contact(f, contacts[i]);
+		read_contact(f, contacts[i - was]);
+		if(id == contacts[i - was]->id)
+			was = 1;
 	}
 	fclose(f);
 	f = fopen(filename, "w");
-	for(int i = 0; i < cnt; i++) {
-		if(contacts[i]->id == id) continue;
+	for(int i = 0; i < cnt - was; i++) {
 		print_contact(contacts[i]);
+		if(i != cnt - 1 - was)
+			printf("\n");
 		free(contacts[i]->name);
 		free(contacts[i]->number);
 		free(contacts[i]);
@@ -171,6 +183,8 @@ void change_number(int id, char *number) {
 			strcpy(contacts[i]->number, number);
 		}	
 		print_contact(contacts[i]);
+		if(i != cnt - 1)
+			printf("\n");
 		free(contacts[i]->name);
 		free(contacts[i]->number);
 		free(contacts[i]);
@@ -196,6 +210,8 @@ void change_name(int id, char *name) {
 			strcpy(contacts[i]->name, name);
 		}	
 		print_contact(contacts[i]);
+		if(i != cnt - 1)
+			printf("\n");
 		free(contacts[i]->name);
 		free(contacts[i]->number);
 		free(contacts[i]);
@@ -212,7 +228,7 @@ int main(int argc, char *argv[]) {
 		if(!strcmp(now, "find")) {
 			char *need = read_string(stdin);
 			find(need);
-			free(need);
+			//free(need);
 		}
 		if(!strcmp(now, "create")) {
 			create();
@@ -232,13 +248,13 @@ int main(int argc, char *argv[]) {
 			if(!strcmp(s, "name")) {
 				change_name(id, read_string(stdin));
 			}	
-			free(s);
+			//free(s);
 		}
 		if(!strcmp(now, "exit")) {
-		    free(now);
+		    //free(now);
 			break;
 		}
-		free(now);
+		//free(now);
 	}
 	return 0;
 }
