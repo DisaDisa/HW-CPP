@@ -96,7 +96,11 @@ void create() {
 	free(number);
 	FILE *f;
 	int id = 0;
-	f = fopen(filename, "r");
+	if((f = fopen(filename, "r")) == 0) {
+		f = fopen(filename, "w");
+		fprintf(f, "%d %s %s", 1, new_con->name, new_con->number);
+		return;	
+	}
 	while(!feof(f)) {
 		contact now;
 		read_contact(f, &now);
