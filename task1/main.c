@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <assert.h>
 
 int main() {
 	int n;
@@ -15,6 +16,8 @@ int main() {
 	scanf("%d", &l1);
 	while(l1 != 0) {
 		scanf("%d%d%d", &r1, &l2, &r2);
+		assert(1 <= l1 && l1 <= n && 1 <= l2 && l2 <= n
+		&& 1 <= r1 && r1 <= n && 1 <= r2 && r2 <= n);
 		for(int i = l1; i <= l2; i++) {
 			for(int j = r1; j <= r2; j++) {
 				printf("%d ", a[i - 1][j - 1]);

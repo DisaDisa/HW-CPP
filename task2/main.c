@@ -215,12 +215,12 @@ int main(int argc, char *argv[]) {
 		}
 		if(!strcmp(now, "delete")) {
 			int id;
-			scanf("%d", id);
+			scanf("%d", &id);
 			delete(id);
 		}
 		if(!strcmp(now, "change")) {
 			int id;
-			scanf("%d", id);
+			scanf("%d", &id);
 			char *s = read_string(stdin);
 			if(!strcmp(s, "number")) {
 				change_number(id, read_string(stdin));
