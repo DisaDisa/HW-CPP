@@ -99,17 +99,17 @@ void create() {
 	if((f = fopen(filename, "r")) == 0) {
 		f = fopen(filename, "w");
 		fprintf(f, "%d %s %s", 1, new_con->name, new_con->number);
-		return;	
+	} else {
+		while(!feof(f)) {
+			contact now;
+			read_contact(f, &now);
+			if(id < now.id)
+				id = now.id;
+		}
+		fclose(f);
+		f = fopen(filename, "a");
+		printf("%d %s %s\n", id + 1, new_con->name, new_con->number);
 	}
-	while(!feof(f)) {
-		contact now;
-		read_contact(f, &now);
-		if(id < now.id)
-			id = now.id;
-	}
-	fclose(f);
-	f = fopen(filename, "a");
-	printf("%d %s %s\n", id + 1, new_con->name, new_con->number);
 	fclose(f);
 	free(new_con->name);
 	free(new_con->number);
