@@ -39,8 +39,8 @@ void read_contact(FILE *in, contact *now) {
 	now->number = (char *) malloc(strlen(number) + 1);
 	strcpy(now->name, name);
 	strcpy(now->number, number);
-	free(name);
-	free(number);
+	//free(name);
+	//free(number);
 }	
 
 void print_contact(contact *a) {
@@ -80,7 +80,7 @@ void find(char *str) {
 		if(substring(now->name, str) ||
 		 substring(normal_number(now->number), normal_number(str)))
 			print_contact(now);
-		free(now);
+		//free(now);
 	}
 	fclose(f);
 }	
@@ -93,9 +93,9 @@ int count() {
 	while(!feof(f)) {
 		contact *now;
 		read_contact(f, now);
-		free(now->name);
-		free(now->number);
-		free(now);
+		//free(now->name);
+		//free(now->number);
+		//free(now);
 		ans++;
 	}
 	fclose(f);
@@ -110,8 +110,8 @@ void create() {
 	new_con->number = (char *) malloc(strlen(number) + 1);
 	strcpy(new_con->name, name);
 	strcpy(new_con->number, number);
-	free(name);
-	free(number);	
+	//free(name);
+	//free(number);	
 	FILE *f;
 	int id = 0;
 	f = fopen(filename, "r");
@@ -157,11 +157,11 @@ void delete(int id) {
 		print_contact(contacts[i]);
 		if(i != cnt - 1 - was)
 			printf("\n");
-		free(contacts[i]->name);
-		free(contacts[i]->number);
-		free(contacts[i]);
+		//free(contacts[i]->name);
+		//free(contacts[i]->number);
+		//free(contacts[i]);
 	}
-	free(contacts);
+	//free(contacts);
 	fclose(f);
 }	
 
@@ -185,11 +185,11 @@ void change_number(int id, char *number) {
 		print_contact(contacts[i]);
 		if(i != cnt - 1)
 			printf("\n");
-		free(contacts[i]->name);
-		free(contacts[i]->number);
-		free(contacts[i]);
+		//free(contacts[i]->name);
+		//free(contacts[i]->number);
+		//free(contacts[i]);
 	}
-	free(contacts);
+	//free(contacts);
 	fclose(f);
 }
 
@@ -212,11 +212,11 @@ void change_name(int id, char *name) {
 		print_contact(contacts[i]);
 		if(i != cnt - 1)
 			printf("\n");
-		free(contacts[i]->name);
-		free(contacts[i]->number);
-		free(contacts[i]);
+		//free(contacts[i]->name);
+		//free(contacts[i]->number);
+		//free(contacts[i]);
 	}
-	free(contacts);
+	//free(contacts);
 	fclose(f);
 }
 
