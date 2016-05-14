@@ -78,8 +78,10 @@ void find(char *str) {
 		contact *now;
 		read_contact(f, now);
 		if(substring(now->name, str) ||
-		 substring(normal_number(now->number), normal_number(str)))
+		 substring(normal_number(now->number), normal_number(str))) {
 			print_contact(now);
+			printf("\n");
+		}	
 		//free(now);
 	}
 	fclose(f);
