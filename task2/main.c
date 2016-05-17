@@ -64,7 +64,7 @@ bool substring(char *str, char *substr) {
 }
 
 char *normal_number(char *s) {
-	char *ans;
+	char *ans = (char *)malloc(sizeof(char));
 	for(int i = 0; i < strlen(s); i++) {
 		if(s[i] >= '0' && s[i] <= '9') {
 			ans = (char *) realloc(ans, (strlen(ans) + 1) * sizeof(char));
