@@ -82,7 +82,7 @@ void find(char *str) {
 	while(!feof(f)) {
 		contact *now = (contact *) malloc(sizeof(contact));
 		read_contact(f, now);
-		if(substring(now->name, str) || !strcmp(normal_number(now->number), normal_number(str))) {
+		if(substring(now->name, str) || substring(normal_number(now->number), normal_number(str))) {
 			print_contact(now);
 			printf("\n");
 		}
