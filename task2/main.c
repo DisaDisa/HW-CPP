@@ -63,17 +63,34 @@ bool substring(char *str, char *substr) {
 	return false;
 }
 
-char *normal_number(char *s) {
-	char *ans = (char *)malloc(sizeof(char));
-	for(int i = 0; i < strlen(s); i++) {
-		if(s[i] >= '0' && s[i] <= '9') {
-			ans = (char *) realloc(ans, (strlen(ans) + 1) * sizeof(char));
-			ans[strlen(ans) - 2] = s[i];
-		}
+bool cmp(char *s, char *t) {
+    int cnt1 = 0, cnt2 = 0;
+    for(int i = 0; i < strlen(s); i++)
+        if(s[i] >= '0' && s[i] <= '9') cnt1++;
+    for(int i = 0; i < strlen(t); i++)
+        if(t[i] >= '0' && t[i] <= '9') cnt2++;
+    if(cnt1 != cnt2) return false;
+    char *ss = (char *) malloc((cnt1 + 1) * sizeof(char));
+    char *tt = (char *) malloc((cnt2 + 1) * sizeof(char));
+    int id1 = 0, id2 = 0;
+    for(int i = 0; i < strlen(s); i++) {
+        if(s[i] >= '0' && s[i] <= '9') ss[id1++] = s[i];
     }
-    ans[strlen(ans) - 1] = '\0';
-    //printf("%s ", ans);
-    return ans;
+    for(int i = 0; i < strlen(t); i++) {
+        if(t[i] >= '0' && t[i] <= '9') tt[id2++] = t[i];
+    }
+    ss[id1] = '\0';
+    tt[id2] = '\0';
+    for(int i = 0; i < cnt1; i++) {
+        if(ss[i] != tt[i]) {
+            free(ss);
+            free(tt);
+            return false;
+        }
+    }
+    free(ss);
+    free(tt);
+    return true;
 }
 
 void find(char *str) {
@@ -82,7 +99,7 @@ void find(char *str) {
 	while(!feof(f)) {
 		contact *now = (contact *) malloc(sizeof(contact));
 		read_contact(f, now);
-		if(substring(now->name, str) || !strcmp(normal_number(now->number), normal_number(str))) {
+		if(substring(now->name, str) || cmp(now->number, str)) {
 			print_contact(now);
 			printf("\n");
 		}
@@ -239,32 +256,32 @@ int main(int argc, char *argv[]) {
 		//printf("%s\n", "started");
 		char *now = read_string(stdin);
 		//printf("%s\n", "read");
-		if(!strcmp(now, "find")) {
+		if(strcmp(now, "find") == 0) {
 			char *need = read_string(stdin);
 			find(need);
 			free(need);
 		}
-		if(!strcmp(now, "create")) {
+		if(strcmp(now, "create") == 0) {
 			create();
 		}
-		if(!strcmp(now, "delete")) {
+		if(strcmp(now, "delete") == 0) {
 			int id;
 			scanf("%d", &id);
 			delete(id);
 		}
-		if(!strcmp(now, "change")) {
+		if(strcmp(now, "change") == 0) {
 			int id;
 			scanf("%d", &id);
 			char *s = read_string(stdin);
-			if(!strcmp(s, "number")) {
+			if(strcmp(s, "number") == 0) {
 				change_number(id, read_string(stdin));
 			}
-			if(!strcmp(s, "name")) {
+			if(strcmp(s, "name") == 0) {
 				change_name(id, read_string(stdin));
 			}
 			free(s);
 		}
-		if(!strcmp(now, "exit")) {
+		if(strcmp(now, "exit") == 0) {
 		    free(now);
 			break;
 		}
