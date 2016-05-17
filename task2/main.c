@@ -125,7 +125,7 @@ void create() {
 	int id = 0;
 	f = fopen(filename, "r");
 	if(f == 0) {
-        fclose(f);
+        //fclose(f);
 		f = fopen(filename, "w");
 		fprintf(f, "%d %s %s", 1, new_con->name, new_con->number);
 	} else {
