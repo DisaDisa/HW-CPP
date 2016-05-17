@@ -31,13 +31,13 @@ char *read_string(FILE *in) {
 
 
 void read_contact(FILE *in, contact *now) {
-	printf("%s ", "read_con_started");
+	//printf("%s ", "read_con_started");
 	fscanf(in, "%d", &(now->id));
-	printf("%d ", now->id);
+	//printf("%d ", now->id);
 	char *name = read_string(in);
-	printf("%s ", name);
+	//printf("%s ", name);
 	char *number = read_string(in);
-	printf("%s\n", number);
+	//printf("%s\n", number);
 	now->name = (char *) malloc(strlen(name) + 1);
 	now->number = (char *) malloc(strlen(number) + 1);
 	strcpy(now->name, name);
@@ -68,10 +68,11 @@ char *normal_number(char *s) {
 	for(int i = 0; i < strlen(s); i++) {
 		if(s[i] >= '0' && s[i] <= '9') {
 			ans = (char *) realloc(ans, (strlen(ans) + 1) * sizeof(char));
-			ans[strlen(ans) - 1] = s[i];
+			ans[strlen(ans) - 2] = s[i];
 		}
     }
-    printf("%s ", ans);
+    ans[strlen(ans) - 1] = '\0';
+    //printf("%s ", ans);
     return ans;
 }
 
@@ -108,7 +109,7 @@ int count() {
 }
 
 void create() {
-	printf("%s\n", "creating");
+	//printf("%s\n", "creating");
 	contact *new_con = (contact *) malloc(sizeof(contact));
 	char *name = read_string(stdin);
 	char *number = read_string(stdin);
@@ -116,8 +117,8 @@ void create() {
 	new_con->number = (char *) malloc(strlen(number) + 1);
 	strcpy(new_con->name, name);
 	strcpy(new_con->number, number);
-	printf("%s\n", new_con->name);
-	printf("%s\n", new_con->number);
+	//printf("%s\n", new_con->name);
+	//printf("%s\n", new_con->number);
 	free(name);
 	free(number);
 	FILE *f;
@@ -128,7 +129,7 @@ void create() {
 		f = fopen(filename, "w");
 		fprintf(f, "%d %s %s", 1, new_con->name, new_con->number);
 	} else {
-		printf("%s\n", "contacts:");
+		//printf("%s\n", "contacts:");
 		while(!feof(f)) {
 			contact *now = (contact *) malloc(sizeof(contact));
 			read_contact(f, now);
@@ -143,7 +144,7 @@ void create() {
 		fprintf(f, "\n%d %s %s", id + 1, new_con->name, new_con->number);
 	}
 	fclose(f);
-	printf("%s\n", "created");
+	//printf("%s\n", "created");
 	free(new_con->number);
 	free(new_con->name);
 	free(new_con);
@@ -235,9 +236,9 @@ void change_name(int id, char *name) {
 int main(int argc, char *argv[]) {
 	filename = argv[1];
 	while(0 == 0) {
-		printf("%s\n", "started");
+		//printf("%s\n", "started");
 		char *now = read_string(stdin);
-		printf("%s\n", "read");
+		//printf("%s\n", "read");
 		if(!strcmp(now, "find")) {
 			char *need = read_string(stdin);
 			find(need);
@@ -267,7 +268,7 @@ int main(int argc, char *argv[]) {
 		    free(now);
 			break;
 		}
-		printf("%s\n", "done");
+		//printf("%s\n", "done");
 		free(now);
 	}
 	return 0;
