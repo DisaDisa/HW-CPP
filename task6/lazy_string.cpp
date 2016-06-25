@@ -1,5 +1,5 @@
 #include "lazy_string.h"
-
+#include <string>
 
 void lazy_string::detach() {
 	if (sh->links == 1) return;
@@ -83,5 +83,7 @@ std::istream &operator >> (std::istream &in, lazy_string &s) {
 
 
 int main() {
+	lazy_string s = lazy_string("abc");
+	std::cout << s;
 	return 0;
 }

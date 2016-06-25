@@ -8,15 +8,15 @@
 class lazy_string {
 private:
 	struct shell {
-		std::string data;
-		int links;
+		std::string data; //array of chars
+		int links; //numbver of outcoming links
 
 		shell() {
 			data = std::string();
 			links = 1;
 		}
 
-		shell(std::string s) {
+		shell(const std::string s) {
 			data = s;
 			links = 1;
 		}
@@ -26,25 +26,24 @@ private:
 
 	void detach();
 public:
-	lazy_string();
-	~lazy_string();
+	lazy_string(); // make new empty lazy_string
+	~lazy_string(); //delete lazy_string
 
-	lazy_string(const std::string &);
-	lazy_string(const lazy_string &);
+	lazy_string(const std::string &); //make new lazy_string from std::string
+	lazy_string(const lazy_string &); //make new lazy_string from lazy_string
 
-	int size() const;
+	int size() const; //return size of lazy_string
 
-	int length() const;
+	int length() const; //return length of lazy_string
 
-	char at(const int) const;
+	char at(const int) const; //return char at given position
 
-	char &operator[](const int i); //change
-	char operator[](const int i) const; //at position
+	char &operator[](const int i); //return link of a char at position i
+	char operator[](const int i) const; //return char at poistion i
 
-	lazy_string substr(const int, const int);
+	lazy_string substr(const int, const int); //return substring of lazy_string [ind, ind + shift)
 
-	friend std::ostream &operator << (std::ostream &, lazy_string &);
-	friend std::istream &operator >> (std::istream &, lazy_string &);
+	friend std::ostream &operator << (std::ostream &, lazy_string &); //print lazy_string from output stream
+	friend std::istream &operator >> (std::istream &, lazy_string &); //take lazy_string from input stream
 };
 #endif
-
