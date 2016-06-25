@@ -46,13 +46,12 @@ char lazy_string::at(const int ind) const {
 	return sh->data[shift + ind];
 }
 
-char &lazy_string::operator[](const int ind) {
-	detach();
-	return sh->data[shift + ind];
+lazy_string::my_char lazy_string::operator[](const int pos) {
+    return my_char(this, pos);
 }
 
-char lazy_string::operator[](const int ind) const {
-	return sh->data[shift + ind];
+char lazy_string::operator[](const int pos) const {
+    return sh -> data[shift + pos];
 }
 
 lazy_string lazy_string::substr(const int ind, const int cnt) {
@@ -83,7 +82,5 @@ std::istream &operator >> (std::istream &in, lazy_string &s) {
 
 
 int main() {
-	lazy_string s = lazy_string("abc");
-	std::cout << s;
 	return 0;
 }

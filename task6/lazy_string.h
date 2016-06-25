@@ -6,7 +6,29 @@
 #include <string>
 
 class lazy_string {
-private:
+private:	
+	struct my_char {
+   	private:
+   		lazy_string *ls;
+     	int ind;
+     	
+  	public:
+    	my_char(lazy_string *s, int pos) {
+     		ls = s;
+       	ind = pos;
+     	}
+
+     	my_char &operator = (const char c) {
+     		ls -> detach();
+      	ls -> sh -> data[ind] = c;
+      }
+      
+    	operator char() const {
+     		return ls -> sh -> data[ind];
+     	}
+  };
+  
+  
 	struct shell {
 		std::string data; //array of chars
 		int links; //numbver of outcoming links
@@ -16,7 +38,7 @@ private:
 			links = 1;
 		}
 
-		shell(const std::string s) {
+		shell(const std::string &s){
 			data = s;
 			links = 1;
 		}
@@ -38,7 +60,7 @@ public:
 
 	char at(const int) const; //return char at given position
 
-	char &operator[](const int i); //return link of a char at position i
+	my_char operator[](const int i); //return link of a char at position i
 	char operator[](const int i) const; //return char at poistion i
 
 	lazy_string substr(const int, const int); //return substring of lazy_string [ind, ind + shift)
